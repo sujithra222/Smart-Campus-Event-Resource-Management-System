@@ -1,0 +1,13 @@
+Smart-Campus-Event-Resource-Management-System/
+│
+├── index.html
+├── style.css
+├── script.js
+├── README.md
+└── PROJECT_STRUCTURE.txt
+
+Stage 1:
+HTML + CSS + JavaScript + LocalStorage
+
+Stage 2 (next):
+PHP + MySQL backend

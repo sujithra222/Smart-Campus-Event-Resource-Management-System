@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartCampus | Event & Resource Management</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="toast" class="toast"></div>
+
+  <header class="topbar">
+    <a class="brand" href="#home" onclick="showPage('home')">
+      <span class="brand-icon">SC</span>
+      <span><b>SmartCampus</b><small>Event & Resource Management</small></span>
+    </a>
+    <nav id="mainNav">
+      <a href="#home" onclick="showPage('home')">Home</a>
+      <a href="#events" onclick="showPage('events')">Events</a>
+      <a href="#resources" onclick="showPage('resources')">Resources</a>
+      <a href="#registrations" onclick="showPage('registrations')">My Registrations</a>
+      <a href="#contact" onclick="showPage('contact')">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="btn ghost" onclick="openStudentLogin()">Student Login</button>
+      <button class="btn primary" onclick="openAdminLogin()">Admin</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="home" class="page active">
+      <div class="hero">
+        <div class="hero-copy">
+          <span class="eyebrow">SMART CAMPUS • DIGITAL CAMPUS EXPERIENCE</span>
+          <h1>One place to manage every <span>campus experience.</span></h1>
+          <p>Discover events, register in seconds, and request campus resources through one simple platform.</p>
+          <div class="hero-buttons">
+            <button class="btn primary big" onclick="showPage('events')">Explore Events →</button>
+            <button class="btn light big" onclick="showPage('resources')">View Resources</button>
+          </div>
+          <div class="hero-trust"><span>✓ Easy registration</span><span>✓ Resource booking</span><span>✓ Admin management</span></div>
+        </div>
+        <div class="hero-card">
+          <div class="mini-calendar"><span>OCT</span><b>15</b><small>2026</small></div>
+          <div>
+            <strong>AI & Machine Learning Workshop</strong>
+            <p>10:00 AM • Seminar Hall</p>
+            <button class="text-btn" onclick="openEvent(1)">View event →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-head centered">
+        <span class="eyebrow">WHY SMARTCAMPUS?</span>
+        <h2>Everything your campus needs</h2>
+        <p>Designed to make event participation and campus resource management faster and simpler.</p>
+      </div>
+      <div class="feature-grid">
+        <div class="feature-card"><div class="feature-icon">📅</div><h3>Event Management</h3><p>Browse upcoming campus events and register without paperwork.</p></div>
+        <div class="feature-card"><div class="feature-icon">🏢</div><h3>Resource Booking</h3><p>Check availability and request halls, labs and other campus resources.</p></div>
+        <div class="feature-card"><div class="feature-icon">📊</div><h3>Smart Dashboard</h3><p>Admins can manage events, registrations, resources and bookings.</p></div>
+        <div class="feature-card"><div class="feature-icon">🔔</div><h3>Centralized Records</h3><p>Keep registrations and resource requests organized in one place.</p></div>
+      </div>
+
+      <div class="stats">
+        <div><b id="statEvents">0</b><span>Upcoming Events</span></div>
+        <div><b id="statResources">0</b><span>Campus Resources</span></div>
+        <div><b id="statRegistrations">0</b><span>Registrations</span></div>
+        <div><b>24/7</b><span>Access</span></div>
+      </div>
+    </section>
+
+    <section id="events" class="page">
+      <div class="page-banner"><span class="eyebrow">CAMPUS ACTIVITIES</span><h1>Upcoming Events</h1><p>Find an event and reserve your place.</p></div>
+      <div class="toolbar">
+        <input id="eventSearch" type="search" placeholder="Search events..." oninput="renderEvents()">
+        <select id="eventCategory" onchange="renderEvents()"><option value="all">All Categories</option><option>Technology</option><option>Career</option><option>Cultural</option><option>Sports</option><option>Workshop</option></select>
+      </div>
+      <div id="eventGrid" class="card-grid"></div>
+    </section>
+
+    <section id="resources" class="page">
+      <div class="page-banner"><span class="eyebrow">CAMPUS FACILITIES</span><h1>Resources & Facilities</h1><p>Check availability and submit a booking request.</p></div>
+      <div id="resourceGrid" class="card-grid"></div>
+    </section>
+
+    <section id="registrations" class="page">
+      <div class="page-banner"><span class="eyebrow">STUDENT AREA</span><h1>My Registrations</h1><p>Track your event registrations and resource requests.</p></div>
+      <div id="myRegistrations"></div>
+    </section>
+
+    <section id="profile" class="page">
+      <div class="page-banner"><span class="eyebrow">STUDENT AREA</span><h1>Student Profile</h1><p>Manage your campus profile.</p></div>
+      <div class="profile-layout">
+        <div class="profile-card">
+          <div class="avatar" id="profileAvatar">S</div>
+          <h2 id="profileName">Student</h2><p id="profileEmail">student@campus.edu</p>
+          <span class="pill">Active Student</span>
+        </div>
+        <form class="form-card" onsubmit="saveProfile(event)">
+          <h2>Profile Information</h2>
+          <label>Full Name<input id="profileNameInput" required></label>
+          <label>Email<input id="profileEmailInput" type="email" required></label>
+          <label>Department<input id="profileDeptInput" required></label>
+          <label>Register Number<input id="profileRegInput" required></label>
+          <button class="btn primary" type="submit">Save Profile</button>
+        </form>
+      </div>
+    </section>
+
+    <section id="contact" class="page">
+      <div class="page-banner"><span class="eyebrow">GET IN TOUCH</span><h1>Contact Campus Support</h1><p>Have a question? Send us a message.</p></div>
+      <div class="contact-layout">
+        <div class="contact-info">
+          <h2>Campus Support</h2><p>We help students with events, registrations and resource requests.</p>
+          <div class="contact-item">📧 <span>support@smartcampus.edu</span></div>
+          <div class="contact-item">📞 <span>+91 98765 43210</span></div>
+          <div class="contact-item">📍 <span>SmartCampus Administration Block</span></div>
+        </div>
+        <form class="form-card" onsubmit="sendMessage(event)">
+          <label>Name<input required></label><label>Email<input type="email" required></label>
+          <label>Subject<input required></label><label>Message<textarea rows="5" required></textarea></label>
+          <button class="btn primary">Send Message</button>
+        </form>
+      </div>
+    </section>
+
+    <section id="admin" class="page">
+      <div class="admin-head"><div><span class="eyebrow">ADMIN CONSOLE</span><h1>Campus Management Dashboard</h1></div><button class="btn ghost" onclick="adminLogout()">Logout</button></div>
+      <div class="admin-stats">
+        <div><span>Total Events</span><b id="aEvents">0</b></div><div><span>Registrations</span><b id="aRegs">0</b></div><div><span>Resources</span><b id="aResources">0</b></div><div><span>Pending Requests</span><b id="aPending">0</b></div>
+      </div>
+      <div class="admin-tabs">
+        <button class="tab active" onclick="adminTab('eventsAdmin',this)">Events</button>
+        <button class="tab" onclick="adminTab('resourcesAdmin',this)">Resources</button>
+        <button class="tab" onclick="adminTab('registrationsAdmin',this)">Registrations</button>
+        <button class="tab" onclick="adminTab('bookingsAdmin',this)">Bookings</button>
+        <button class="tab" onclick="adminTab('studentsAdmin',this)">Students</button>
+      </div>
+      <div id="eventsAdmin" class="admin-panel"></div>
+      <div id="resourcesAdmin" class="admin-panel hidden"></div>
+      <div id="registrationsAdmin" class="admin-panel hidden"></div>
+      <div id="bookingsAdmin" class="admin-panel hidden"></div>
+      <div id="studentsAdmin" class="admin-panel hidden"></div>
+    </section>
+  </main>
+
+  <footer><div><b>SmartCampus</b><p>Smart Event & Resource Management System</p></div><div><b>Quick Links</b><a onclick="showPage('events')">Events</a><a onclick="showPage('resources')">Resources</a></div><div><b>Support</b><a onclick="showPage('contact')">Contact Us</a><a onclick="openAdminLogin()">Admin Portal</a></div></footer>
+
+  <div id="modal" class="modal"><div class="modal-box"><button class="close" onclick="closeModal()">×</button><div id="modalContent"></div></div></div>
+  <script src="script.js"></script>
+</body>
+</html>
